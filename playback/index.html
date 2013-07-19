@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+	<title>Reverb collaborative playlisting</title>
+	<link rel="stylesheet" type="text/css" href="css/playlist.css">
+	<script src="js/socket.io.js"></script>
+	<script src="js/ejs.js"></script>
+</head>
+<body>
+
+	<div id="nowPlaying"></div>
+
+	<div id="sharedPlaylist"></div>
+
+
+    <div id="video" style="width: 360px; height: 300px;" ></div>
+
+<script src="js/popcorn-complete.min.js"></script> 
+<script type="text/javascript">
+var currentlyPlaying = '';
+var videoPlaylist
+
+function playNext(videoId) {
+	currentlyPlaying = '';
+  document.querySelector('#nowPlaying').innerHTML = '';
+	socket.emit('finished playing', { videoId: videoId });
+}
+
+/* receive shared playlist from server */
+var socket = io.connect('http://playlists-7947.onmodulus.net');
+socket.on('full playlist', function (data) {
+	console.log('playlist received:')
+  console.log(data);
+
+	html = new EJS({url: 'templates/playlist.ejs'}).render(data)
+  document.querySelector('#sharedPlaylist').innerHTML = html;
+
+  if(currentlyPlaying=='' && data.playlist.length > 0) {
+		currentlyPlaying = Popcorn.youtube(
+		  '#nowPlaying',
+		  'http://www.youtube.com/watch?v='+data.playlist[0].videoId,
+			{
+				events: {
+		    	"ended": function( e ) {
+		    		playNext(data.playlist[0].videoId);
+		    	}
+		  	}
+			}
+		); // 0P9QMkm9Eew 
+		currentlyPlaying.play();
+  }
+
+});
+</script>
+
+
+
+</body>
+</html>

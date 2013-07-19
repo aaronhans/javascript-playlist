@@ -1,0 +1,21 @@
+{
+  "name": "Collaborative-Playlisting-is-fun",
+  "version": "0.0.1",
+  "description": "Collaborative playlist server",
+  "main": "server/src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main":"app.js",
+  "engines": {
+    "node": ">=0.10.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:reverb/playlist-collab.git"
+  },
+  "author": "Reverb, Inc.",
+  "dependencies": {
+    "socket.io": "~0.9.14"
+  }
+}

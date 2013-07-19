@@ -1,0 +1,17 @@
+<% for(var i=0; i<items.length; i++) {%>
+	<% if(i % 4 == 0) { 
+			var thumbClass = ' searchResultThumb newRow';
+		} else {
+			var thumbClass = ' searchResultThumb';
+		}
+		if(items[i].id.kind == 'youtube#video') {
+			var videoId = items[i].id.videoId;
+			//how do I play the channelId ones?
+			%>
+			<div class="<%= thumbClass %>" id="<%= videoId %>">
+				<img src="<%= items[i].snippet.thumbnails.default.url %>" />
+				<span class="title"><%= items[i].snippet.title %></span>
+			</div>
+			<%
+		}
+ 	} %>

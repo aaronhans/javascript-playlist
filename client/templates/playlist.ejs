@@ -1,0 +1,11 @@
+<h2>Playlist</h2>
+<% for(var i=0; i<playlist.length; i++) {
+	if(i==0) { %>
+			<div class="playlistThumb nowPlaying" id="<%= playlist[i].videoId %>">
+	<% } else { %>
+			<div class="playlistThumb" id="<%= playlist[i].videoId %>">
+	<% } %>
+		<img src="<%= playlist[i].img %>" />
+		<span class="title"><%= playlist[i].title %></span>
+	</div>
+<% } %>
